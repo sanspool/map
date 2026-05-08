@@ -17,7 +17,7 @@ st.markdown("**굵은 글씨**와 *이텔릭체* ")
 st.header("헤더입니다")
 st.subheader("서브헤더입니다")
 st.caption("캡션입니다")
-st.code('print("hello world")')
+st.code("print('hello world')")
 
 st.text("userskin1")
 
