@@ -37,7 +37,7 @@ for i in range(len(df)):
     folium.Marker(
         location=[df.iloc[i]['위도'], df.iloc[i]['경도']],
         popup = df.iloc[i]['위치명'],
-        tooltip = tooltip,
+        tooltip="클릭해보세요",
         icon = folium.Icon(color='cadetblue', icon='info-sign')
         #{'darkgreen', 'purple', 'blue', 'white', 'darkblue', 'red', 'darkred', 'lightgreen', 'pink', 'cadetblue', 'lightred', 'darkpurple', 'lightgray', 'gray', 'black', 'lightblue', 'green', 'orange', 'beige'}
     ).add_to(m)
