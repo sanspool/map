@@ -22,7 +22,7 @@ st.code("print('hello world')")
 st.text("userskin1")
 
 # 2. 데이터 읽어오기(데이터 수집 csv)
-df = pd.read_csv('듬배산등산경로.csv', encoding='cp949')
+df = pd.read_csv('듬배산등산경로.csv', encoding='UTF-8')
 df_latlon = df[['위도','경도']]
 df_latlon = df_latlon.rename(columns={'위도':'lat', '경도':'lon'})
 #st.map(df_latlon)
