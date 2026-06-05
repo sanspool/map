@@ -25,6 +25,7 @@ st.text("userskin1")
 df = pd.read_csv('듬배산등산경로.csv', encoding='UTF-8')
 df_latlon = df[['위도','경도']]
 df_latlon = df_latlon.rename(columns={'위도':'lat', '경도':'lon'})
+print(df_latlon)
 #st.map(df_latlon)
 
 # 지도 생성 및 마커 표시 (지도 시각화 단계)
