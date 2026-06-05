@@ -32,6 +32,16 @@ m = folium.Map(
     location = [37.40583317, 126.7214872],
     zoom_start=13
 )
+
+for i in range(len(df)):
+    folium.Marker(
+        location=[df.iloc[i]['위도'], df.iloc[i]['경도']],
+        popup = df.iloc[i]['위치명'],
+        tooltip = tooltip,
+        icon = folium.Icon(color='cadetblue', icon='info-sign')
+        #{'darkgreen', 'purple', 'blue', 'white', 'darkblue', 'red', 'darkred', 'lightgreen', 'pink', 'cadetblue', 'lightred', 'darkpurple', 'lightgray', 'gray', 'black', 'lightblue', 'green', 'orange', 'beige'}
+    ).add_to(m)
+
 folium.Marker(
   location= [37.40583317, 126.7214872],
   popup="남동고등학교",
