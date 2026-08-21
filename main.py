@@ -80,7 +80,7 @@ else:
 
 
 m = folium.Map(
-    location = [37.40583317, 126.7214872],
+    location = [37.407514, 126.719833],
     zoom_start=16
 )
 
@@ -141,7 +141,7 @@ for course_name, group in df.groupby('코스'):
 col1, col2 = st.columns([3,1])
 
 with col1:
-    st.subheader("등산 경로 지도")
+    st.subheader("🐄 등산 경로 지도")
     st_folium(m, width=700, height=500)
 
 with col2:
