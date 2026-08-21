@@ -109,17 +109,20 @@ for course_name, group in df.groupby('코스'):
 
     # 지점별 마커 및 사진 팝업 추가
     for idx, row in group.iterrows():
-        img_file = row['이미지']
+        img_file = image_to_base64(row['이미지'])
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
         popup_html = f'''
-        <div style="width:200px; text-align:center; font-family:sans-serif;">
-            <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
-            <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
-            <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
-            <img src="{img_file}" width="180px" style="border-radius:6px; margin-top:5px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=No+Image';">
-        </div>
-        '''
+<div style="width:200px; text-align:center; font-family:sans-serif;">
+    <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
+    <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
+    <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
+
+    <img src="{img_file}"
+         width="180"
+         style="border-radius:6px; margin-top:5px;">
+    </div>
+    '''
         
         
         folium.Marker(
