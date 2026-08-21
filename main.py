@@ -4,8 +4,6 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
-import base64
-import mimetypes
 
 # 1. 웹 페이지 설정
 st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
@@ -64,13 +62,6 @@ course_info = {
     }
 }
 
-def image_to_base64(img_path):
-    mime_type, _ = mimetypes.guess_type(img_path)
-
-    with open(img_path, "rb") as f:
-        encoded = base64.b64encode(f.read()).decode()
-
-    return f"data:{mime_type};base64,{encoded}"
 
 
 # 3. 사이드 바 - 코스 선택
@@ -118,7 +109,7 @@ for course_name, group in df.groupby('코스'):
 
     # 지점별 마커 및 사진 팝업 추가
     for idx, row in group.iterrows():
-        img_file = image_to_base64(row['이미지'])
+        img_file = row['이미지']
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
         popup_html = f'''
