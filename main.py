@@ -157,4 +157,4 @@ with col2:
     st.metric(label="소요시간",value="10분") #소요시간, 정보 코스별로 넣기
     st.write("주의사항 : 등산화를 착용하세요.")
 
-st_folium(m, width=700, height=500)
+#st_folium(m, width=700, height=500)
