@@ -109,7 +109,7 @@ for course_name, group in df.groupby('코스'):
 
     # 지점별 마커 및 사진 팝업 추가
     for idx, row in group.iterrows():
-        img_file = image_to_base64(row['이미지'])
+        img_file = row['이미지']
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
         popup_html = f'''
