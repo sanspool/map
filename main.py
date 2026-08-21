@@ -4,6 +4,7 @@ import streamlit as st
 import folium
 from streamlit_folium import st_folium
 import pandas as pd
+from PIL import Image, ImageOps
 
 # 1. 웹 페이지 설정
 st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
@@ -113,16 +114,14 @@ for course_name, group in df.groupby('코스'):
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
         popup_html = f'''
-<div style="width:200px; text-align:center; font-family:sans-serif;">
-    <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
-    <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
-    <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
+        <div style="width:200px; text-align:center; font-family:sans-serif;">
+            <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
+            <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
+            <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
+        </div>
+        '''
+        #<img src="{img_file}" width="180px" style="border-radius:6px; margin-top:5px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=No+Image';">
 
-    <img src="{img_file}"
-         width="180"
-         style="border-radius:6px; margin-top:5px;">
-    </div>
-    '''
         
         
         folium.Marker(
@@ -168,9 +167,23 @@ with col2:
             st.write(f"📍 **{row['위치명']}**")
             img_path = row['이미지']
             if os.path.exists(img_path):
-                st.image(img_path, caption=row['위치명'], use_container_width=True)
+                try:
+                    img = Image.open(img_path)
+            
+                    # EXIF 회전 정보를 실제 이미지 방향에 적용
+                    img = ImageOps.exif_transpose(img)
+            
+                    st.image(
+                        img,
+                        caption=row['위치명'],
+                        use_container_width=True
+                    )
+            
+                except Exception:
+                    st.caption("*(해당 지점 이미지 파일을 불러올 수 없습니다.)*")
             else:
-                st.caption("📷 *(해당 지점 이미지 파일 준비 중)*")
+                st.caption("*(해당 지점 이미지 파일 준비 중)*")
+
     else:
         st.info("👈 왼쪽 사이드바에서 특정 코스(A~E)를 선택하면 예상 소요시간, 주의사항 및 포인트별 사진을 상세히 보실 수 있습니다.")
         
