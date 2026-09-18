@@ -122,13 +122,18 @@ for course_name, group in df.groupby('코스'):
         '''
         #<img src="{img_file}" width="180px" style="border-radius:6px; margin-top:5px;" onerror="this.onerror=null; this.src='https://via.placeholder.com/180x120?text=No+Image';">
 
-        
+        if "정상" in row['위치명']:
+            icon_name = "flag-checkered"
+        elif "입구" in row['위치명']:
+            icon_name = "person-hiking"
+        else:
+            icon_name = "location-dot"
         
         folium.Marker(
             location=[row['위도'], row['경도']],
             popup=folium.Popup(popup_html, max_width=220),
             tooltip=f"{row['위치명']} (클릭 시 상세/사진 보기)",
-            icon=folium.Icon(color=marker_color, icon='info-sign')
+            icon=folium.Icon(color=marker_color, icon=icon_name, prefix='fa')
         ).add_to(m)
 
 
