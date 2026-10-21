@@ -8,6 +8,14 @@ from streamlit_folium import st_folium
 import pandas as pd
 from PIL import Image, ImageOps
 
+@st.cache_data
+def image_to_base64(img_file):
+    with open(img_file, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode("utf-8")
+
+    mime_type = mimetypes.guess_type(img_file)[0] or "image/jpeg"
+    return f"data:{mime_type};base64,{encoded}"
+
 # 1. 웹 페이지 설정
 st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
 
@@ -118,28 +126,14 @@ for course_name, group in df.groupby('코스'):
         
         
         if os.path.isfile(img_file):
-            with open(img_file, "rb") as f:
-                image_data = base64.b64encode(f.read()).decode("utf-8")
+            image_src = image_to_base64(img_file)
         
-            mime_type = mimetypes.guess_type(img_file)[0] or "image/jpeg"
             image_html = f'''
-                <img src="data:{mime_type};base64,{image_data}"
-                     width="180"
+                <img src="{image_src}" width="180"
                      style="border-radius:6px; margin-top:5px;">
             '''
         else:
             image_html = "<p>사진을 찾을 수 없습니다.</p>"
-        
-        popup_html = f'''
-        <div style="width:200px; text-align:center; font-family:sans-serif;">
-            <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
-            <p style="margin:2px; font-size:12px; color:#7f8c8d;">
-                {row['코스']}
-            </p>
-            <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
-            {image_html}
-        </div>
-        '''
 
         if "정상" in row['위치명']:
             icon_name = "flag-checkered"
