@@ -135,6 +135,14 @@ for course_name, group in df.groupby('코스'):
         else:
             image_html = "<p>사진을 찾을 수 없습니다.</p>"
 
+        popup_html = f'''
+        <div style="width:200px; text-align:center;">
+            <h4>{row['위치명']}</h4>
+            <p>{row['코스']}</p>
+            {image_html}
+        </div>
+        '''
+        
         if "정상" in row['위치명']:
             icon_name = "flag-checkered"
         elif "입구" in row['위치명']:
