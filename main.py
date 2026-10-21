@@ -1,6 +1,5 @@
 # main.py
-import base64
-import mimetypes
+
 import os
 import streamlit as st
 import folium
