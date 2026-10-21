@@ -113,18 +113,18 @@ for course_name, group in df.groupby('코스'):
         img_file = row['이미지']
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
-       popup_html = f'''
-                    <div style="width:200px; text-align:center; font-family:sans-serif;">
-                        <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
-                        <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
-                        <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
-                    
-                        <img src="{img_file}"
-                             width="180"
-                             style="border-radius:6px; margin-top:5px;"
-                             onerror="this.style.display='none';">
-                    </div>
-                    '''
+        popup_html = f'''
+        <div style="width:200px; text-align:center; font-family:sans-serif;">
+            <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
+            <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
+            <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
+        
+            <img src="{img_file}"
+                 width="180"
+                 style="border-radius:6px; margin-top:5px;"
+                 onerror="this.style.display='none';">
+        </div>
+        '''
 
         if "정상" in row['위치명']:
             icon_name = "flag-checkered"
