@@ -1,4 +1,6 @@
 # main.py
+import base64
+import mimetypes
 import os
 import streamlit as st
 import folium
@@ -113,16 +115,27 @@ for course_name, group in df.groupby('코스'):
         img_file = row['이미지']
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
+        if os.path.isfile(img_file):
+            with open(img_file, "rb") as f:
+                image_data = base64.b64encode(f.read()).decode("utf-8")
+        
+            mime_type = mimetypes.guess_type(img_file)[0] or "image/jpeg"
+            image_html = f'''
+                <img src="data:{mime_type};base64,{image_data}"
+                     width="180"
+                     style="border-radius:6px; margin-top:5px;">
+            '''
+        else:
+            image_html = "<p>사진을 찾을 수 없습니다.</p>"
+        
         popup_html = f'''
         <div style="width:200px; text-align:center; font-family:sans-serif;">
             <h4 style="margin:5px 0; color:#2c3e50;">{row['위치명']}</h4>
-            <p style="margin:2px; font-size:12px; color:#7f8c8d;">{row['코스']}</p>
+            <p style="margin:2px; font-size:12px; color:#7f8c8d;">
+                {row['코스']}
+            </p>
             <hr style="margin:5px 0; border:0; border-top:1px solid #ddd;">
-        
-            <img src="{img_file}"
-                 width="180"
-                 style="border-radius:6px; margin-top:5px;"
-                 onerror="this.style.display='none';">
+            {image_html}
         </div>
         '''
 
