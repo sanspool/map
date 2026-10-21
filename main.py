@@ -17,7 +17,8 @@ st.markdown("왼쪽 메뉴에서 코스를 선택하고 행사에 참여해 보�
 df = pd.read_csv('등산 경로.csv', encoding='UTF-8')
 # 코스의 위치에 해당하는 사진 이미지 이름: "images/A입구.jpg"
 df['이미지'] = 'images/' + df['코스'] + df['위치명'] + '.jpg'
-
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/sanspool/map/main/"
+df['웹_이미지'] = GITHUB_RAW_URL + df['이미지']
 
 df_latlon = df[['위도','경도']]
 df_latlon = df_latlon.rename(columns={'위도':'lat', '경도':'lon'})
@@ -110,7 +111,7 @@ for course_name, group in df.groupby('코스'):
 
     # 지점별 마커 및 사진 팝업 추가
     for idx, row in group.iterrows():
-        img_file = row['이미지']
+        img_file = row['웹_이미지']
         
         # Folium Popup HTML 작성 (지점명 + 코스 + 클릭 시 띄울 이미지)
         
